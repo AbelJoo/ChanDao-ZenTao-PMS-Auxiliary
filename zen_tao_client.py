@@ -4,52 +4,20 @@
 import urllib2
 import cookielib
 
-_host = "http://117.78.6.79:8081/zentaopms/www/"
-_login = _host + "user-login.html"
-_home_page = _host + "my/"
-_my_bug = _host + "my-bug.html"
+ACCOUNT = ""
+PASSWORD = ""
 
-_cookie = None
+__site_host = "http://117.78.6.79:8081/zentaopms/www/"
+__site_login = __site_host + "user-login.html"
+__site_home_page = __site_host + "my/"
+__site_my_bug = __site_host + "my-bug.html"
 
-_cookie = cookielib.LWPCookieJar()
-cookie_support = urllib2.HTTPCookieProcessor(_cookie)
+__cookie = None
+
+__cookie = cookielib.LWPCookieJar()
+cookie_support = urllib2.HTTPCookieProcessor(__cookie)
 opener = urllib2.build_opener(cookie_support, urllib2.HTTPHandler)
 urllib2.install_opener(opener)
-
-
-class Login(object):
-    def __init__(self, account, password):
-        self.account = account
-        self.password = password
-
-    def login(self):
-        """
-        登录
-        :return: 登陆成功返回True
-        """
-        body_text_0 = "account="
-        body_text_1 = "&password="
-        body_text_2 = "&keepLogin%5B%5D=on&referer=http%3A%2F%2" \
-                      + "F117.78.6.79%3A8081%2Fzentaopms%2Fwww%2Fmy%2F"
-
-        post_data = body_text_0 \
-                    + self.account \
-                    + body_text_1 \
-                    + self.password \
-                    + body_text_2
-
-        _cookie.clear()
-        request = urllib2.Request(_login, post_data)
-        response = urllib2.urlopen(request)
-        text = str(response.read())
-        status = text.find("失败")
-
-        if status == -1:
-            print("登录成功")
-            return True
-        else:
-            print("登录失败")
-            return False
 
 
 class DataBean(object):
@@ -64,54 +32,69 @@ class DataBean(object):
         return self.content
 
 
-class Operation(object):
-    def __init__(self, login):
-        self.login = login
-        self.url = None
+def __login():
+    """
+    登录
+    :return: 登陆成功返回True
+    """
+    body_text_0 = "account="
+    body_text_1 = "&password="
+    body_text_2 = "&keepLogin%5B%5D=on&referer=http%3A%2F%2" \
+                  + "F117.78.6.79%3A8081%2Fzentaopms%2Fwww%2Fmy%2F"
 
-    def get_data(self):
-        """
-        成功返回数据，否则返回None
-        :return: list
-        """
+    post_data = body_text_0 \
+                + ACCOUNT \
+                + body_text_1 \
+                + PASSWORD \
+                + body_text_2
 
-        html_doc = self.request_html()
-        if html_doc is None:
-            self.login.login()
-            html_doc = self.request_html()
-        beans = self.parser_html(html_doc)
-        return beans
+    __cookie.clear()
+    request = urllib2.Request(__site_login, post_data)
+    response = urllib2.urlopen(request)
+    text = str(response.read())
+    status = text.find("失败")
 
-    def request_html(self):
-        """
-        成功返回html document，否则返回None
-        :return: str
-        """
-
-        request = urllib2.Request(self.url)
-        response = urllib2.urlopen(request)
-        html_doc = str(response.read())
-        print(html_doc)
-        return html_doc
-
-    def parser_html(html_doc):
-        """
-        解析html document
-        :rtype : list
-        """
-        pass
+    if status == -1:
+        print("登录成功")
+        return True
+    else:
+        print("登录失败")
+        return False
 
 
-class HomePage(Operation):
-    def __init__(self, login, url=_home_page):
-        Operation.__init__(self, login)
-        self.url = url
+def __request_html(url):
+    """
+    成功返回html document，否则返回None
+    :return: str
+    """
+
+    request = urllib2.Request(url)
+    response = urllib2.urlopen(request)
+    html_doc = str(response.read())
+    print(html_doc)
+    return html_doc
 
 
-class MyBug(Operation):
-    def __init__(self, login, url=_my_bug):
-        Operation.__init__(self, login)
-        self.url = url
+def __request_data(url, parser):
+    """
+    请求数据
+    :param url: url地址
+    :param parser: 解释器，仅接收一个参数的函数
+    :return: 解析成功返回DataBean，否则为None
+    """
 
-        def parser_html(html_doc):
-            pass
+    html_doc = __request_html(url)
+
+    # beans = map(parser, html_doc)
+    beans = None
+
+    if beans is None:
+        __login()
+        html_doc = __request_html(url)
+        beans = map(parser, html_doc)
+
+    return beans
+
+
+def get_my_bug():
+    __request_data(__site_my_bug, None)
