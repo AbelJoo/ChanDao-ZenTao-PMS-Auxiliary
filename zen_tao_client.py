@@ -3,6 +3,7 @@
 
 import urllib2
 import cookielib
+from parser import BaseParser, MyBugParser
 
 ACCOUNT = ""
 PASSWORD = ""
@@ -71,7 +72,7 @@ def __request_html(url):
     request = urllib2.Request(url)
     response = urllib2.urlopen(request)
     html_doc = str(response.read())
-    print(html_doc)
+    # print(html_doc)
     return html_doc
 
 
@@ -83,17 +84,30 @@ def __request_data(url, parser):
     :return: 解析成功返回DataBean，否则为None
     """
 
+
+
+    ######################
+    __login()
     html_doc = __request_html(url)
+    # print(html_doc)
 
+    parser = MyBugParser()
+    parser.feed(html_doc)
+    print("=================================")
+    print(parser.tag_stack)
+
+    ######################
     # beans = map(parser, html_doc)
-    beans = None
 
-    if beans is None:
-        __login()
-        html_doc = __request_html(url)
-        beans = map(parser, html_doc)
 
-    return beans
+    # beans = None
+    #
+    # if beans is None:
+    #     __login()
+    #     html_doc = __request_html(url)
+    #     beans = map(parser, html_doc)
+    #
+    # return beans
 
 
 def get_my_bug():
