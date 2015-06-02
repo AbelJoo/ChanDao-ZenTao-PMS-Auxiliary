@@ -21,18 +21,6 @@ opener = urllib2.build_opener(cookie_support, urllib2.HTTPHandler)
 urllib2.install_opener(opener)
 
 
-class DataBean(object):
-    def __init__(self, title, content):
-        self.title = title
-        self.content = content
-
-    def get_title(self):
-        return self.title
-
-    def get_content(self):
-        return self.content
-
-
 def __login():
     """
     登录
@@ -93,8 +81,7 @@ def __request_data(url, parser):
 
     parser = MyBugParser()
     parser.feed(html_doc)
-    print("=================================")
-    print(parser.tag_stack)
+    print("===============in zen tao client==================")
 
     ######################
     # beans = map(parser, html_doc)
