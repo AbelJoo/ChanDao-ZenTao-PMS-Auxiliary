@@ -3,12 +3,14 @@
 
 
 class DataBean(object):
-    def __init__(self, title, content):
+    pass
+
+
+class BugBean(DataBean):
+    def __init__(self, bug_id, level, error_type, title, author="未知", content=""):
+        self.bug_id = bug_id
+        self.level = level
+        self.error_type = error_type
         self.title = title
+        self.author = author
         self.content = content
-
-    def get_title(self):
-        return self.title
-
-    def get_content(self):
-        return self.content

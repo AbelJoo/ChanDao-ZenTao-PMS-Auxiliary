@@ -2,6 +2,7 @@
 # coding:utf-8
 
 from sgmllib import SGMLParser
+from bean import DataBean, BugBean
 
 
 class BaseParser(SGMLParser):
@@ -32,6 +33,9 @@ class BaseParser(SGMLParser):
 
     def is_now_has_tag_key(self, key_set):
         if not self.now_tag_attrs \
+                and not key_set:
+            return True
+        elif not self.now_tag_attrs \
                 or not key_set:
             return False
 
@@ -52,9 +56,49 @@ class BaseParser(SGMLParser):
 class MyBugParser(BaseParser):
     __id_stack__ = ("html", "body", "div", "div", "form", "table", "tbody", "tr", "td", "input", "a")
     __id_tag_key_set__ = ("href", "target")
+    __level_stack__ = ("html", "body", "div", "div", "form", "table", "tbody", "tr", "td", "span")
+    __level_tag_key_set__ = ("class",)
+    __title_stack__ = ("html", "body", "div", "div", "form", "table", "tbody", "tr", "td", "a")
+    __title_tag_key_set__ = ("href",)
+    # 直接被<td>标签包裹的元素
+    __td_stack__ = ("html", "body", "div", "div", "form", "table", "tbody", "tr", "td")
+    __td_tag_key_set__ = ()
+
+    def __init__(self):
+        BaseParser.__init__(self)
+        self.content_set = []
+        self.bean_list = []
 
     def handle_data(self, text):
         # id
         if cmp(tuple(self.tag_stack), MyBugParser.__id_stack__) == 0 \
                 and self.is_now_has_tag_key(MyBugParser.__id_tag_key_set__):
-            print("issues id: " + text)
+            self.add_to_content_set(text)
+            print("bug id: " + text)
+        # level
+        if cmp(tuple(self.tag_stack), MyBugParser.__level_stack__) == 0 \
+                and self.is_now_has_tag_key(MyBugParser.__level_tag_key_set__):
+            self.add_to_content_set(text)
+            print("bug level: " + text)
+        # title
+        if cmp(tuple(self.tag_stack), MyBugParser.__title_stack__) == 0 \
+                and self.is_now_has_tag_key(MyBugParser.__title_tag_key_set__):
+            self.add_to_content_set(text)
+            print("bug title: " + text)
+        # td
+        if cmp(tuple(self.tag_stack), MyBugParser.__td_stack__) == 0 \
+                and self.is_now_has_tag_key(MyBugParser.__td_tag_key_set__) \
+                and str(text).strip() != "":
+            self.add_to_content_set(text)
+            print("bug <td> tag: " + text)
+
+    def add_to_content_set(self, value):
+        self.content_set.append(value)
+        if len(self.content_set) == 6:
+            bean = BugBean(self.content_set[0],
+                           self.content_set[1],
+                           self.content_set[2],
+                           self.content_set[3],
+                           self.content_set[4])
+            self.bean_list.append(bean)
+            self.content_set = []

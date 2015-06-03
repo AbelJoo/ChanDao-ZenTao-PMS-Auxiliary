@@ -1,5 +1,7 @@
 #! /usr/bin/python
 # coding:utf-8
+import Tkinter
+import pynotify
 import zen_tao_client
 
 

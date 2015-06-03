@@ -3,6 +3,7 @@
 
 import urllib2
 import cookielib
+from bean import BugBean
 from parser import BaseParser, MyBugParser
 
 ACCOUNT = ""
@@ -68,34 +69,15 @@ def __request_data(url, parser):
     """
     请求数据
     :param url: url地址
-    :param parser: 解释器，仅接收一个参数的函数
+    :param parser: 解释器
     :return: 解析成功返回DataBean，否则为None
     """
-
-
-
-    ######################
     __login()
     html_doc = __request_html(url)
-    # print(html_doc)
-
-    parser = MyBugParser()
     parser.feed(html_doc)
-    print("===============in zen tao client==================")
-
-    ######################
-    # beans = map(parser, html_doc)
-
-
-    # beans = None
-    #
-    # if beans is None:
-    #     __login()
-    #     html_doc = __request_html(url)
-    #     beans = map(parser, html_doc)
-    #
-    # return beans
 
 
 def get_my_bug():
-    __request_data(__site_my_bug, None)
+    parser = MyBugParser()
+    __request_data(__site_my_bug, parser)
+    return parser.bean_list
