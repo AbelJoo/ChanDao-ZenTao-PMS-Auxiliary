@@ -1,5 +1,6 @@
 #private config
 /config.inf
+config.inf
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
