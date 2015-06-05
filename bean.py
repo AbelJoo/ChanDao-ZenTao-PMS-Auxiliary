@@ -3,12 +3,13 @@
 
 
 class DataBean(object):
-    pass
+    def __init__(self, uid=0):
+        self.uid = uid
 
 
 class BugBean(DataBean):
-    def __init__(self, bug_id, level, error_type, title, author="未知", content=""):
-        self.bug_id = bug_id
+    def __init__(self, uid, level, error_type, title, author="未知", content=""):
+        DataBean.__init__(self, uid)
         self.level = level
         self.error_type = error_type
         self.title = title

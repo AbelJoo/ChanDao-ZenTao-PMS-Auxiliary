@@ -3,8 +3,12 @@
 
 import urllib2
 import cookielib
+import sys
 from bean import BugBean
+import cache
 from parser import BaseParser, MyBugParser
+import tools
+
 
 ACCOUNT = ""
 PASSWORD = ""
@@ -55,29 +59,36 @@ def __request_html(url, post_data=None):
     成功返回html document，否则返回None
     :return: str
     """
+    html_doc = ""
     try:
         request = urllib2.Request(url, post_data)
         response = urllib2.urlopen(request, timeout=10)
         html_doc = str(response.read())
-        # print(html_doc)
+    except Exception as e:
+        tools.print_log(__name__ + "." + sys._getframe().f_code.co_name,
+                        "something error at:" + "\n"
+                        + url
+                        + "\nexception message:"
+                        + str(e.message))
     finally:
         return html_doc
 
 
 def __request_data(url, parser):
     """
-    请求数据
+
     :param url:
     :param parser:
-    :return:
+    :return: bean list
     """
     html_doc = __request_html(url)
     parser.feed(html_doc)
+    tools.print_log(__name__ + "." + sys._getframe().f_code.co_name,
+                    url + "\n" + str(parser.bean_list))
+    return parser.bean_list
 
 
 def get_my_bug():
     parser = MyBugParser()
-    __request_data(HOST + __site_my_bug, parser)
-    print ("my_bug:")
-    print (parser.bean_list)
-    return parser.bean_list
+    bean_list = __request_data(HOST + __site_my_bug, parser)
+    return bean_list

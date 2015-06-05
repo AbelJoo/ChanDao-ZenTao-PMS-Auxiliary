@@ -1,6 +1,7 @@
 #! /usr/bin/python
 # coding:utf-8
 import os
+import time
 
 
 def scanner_config():
@@ -34,3 +35,10 @@ def show_notify(title, content=""):
         + content \
         + "\""
     os.system(msg)
+
+
+def print_log(title, content):
+    print ("============================================================")
+    print (time.strftime('%Y-%m-%d %H:%M:%S ', time.localtime(time.time())) + str(title))
+    print (content)
+    print ("============================================================")
