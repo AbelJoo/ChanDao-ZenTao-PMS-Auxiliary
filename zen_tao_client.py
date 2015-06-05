@@ -78,4 +78,6 @@ def __request_data(url, parser):
 def get_my_bug():
     parser = MyBugParser()
     __request_data(HOST + __site_my_bug, parser)
+    print ("my_bug:")
+    print (parser.bean_list)
     return parser.bean_list

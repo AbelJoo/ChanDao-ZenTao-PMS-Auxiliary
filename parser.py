@@ -74,23 +74,19 @@ class MyBugParser(BaseParser):
         if cmp(tuple(self.tag_stack), MyBugParser.__id_stack__) == 0 \
                 and self.is_now_has_tag_key(MyBugParser.__id_tag_key_set__):
             self.add_to_content_set(text)
-            print("bug id: " + text)
         # level
         if cmp(tuple(self.tag_stack), MyBugParser.__level_stack__) == 0 \
                 and self.is_now_has_tag_key(MyBugParser.__level_tag_key_set__):
             self.add_to_content_set(text)
-            print("bug level: " + text)
         # title
         if cmp(tuple(self.tag_stack), MyBugParser.__title_stack__) == 0 \
                 and self.is_now_has_tag_key(MyBugParser.__title_tag_key_set__):
             self.add_to_content_set(text)
-            print("bug title: " + text)
         # td
         if cmp(tuple(self.tag_stack), MyBugParser.__td_stack__) == 0 \
                 and self.is_now_has_tag_key(MyBugParser.__td_tag_key_set__) \
                 and str(text).strip() != "":
             self.add_to_content_set(text)
-            print("bug <td> tag: " + text)
 
     def add_to_content_set(self, value):
         self.content_set.append(value)

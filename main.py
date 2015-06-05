@@ -63,8 +63,8 @@ def start_my_bug_task_loop():
                                    + "From:" + bean.author
             else:
                 pass
-                msg_title = "当前共有" + str(len(bug_bean)) + "条bug"
-                msg_content = "无"
+                # msg_title = "当前共有" + str(len(bug_bean)) + "条bug"
+                # msg_content = "无"
 
             if msg_title and msg_content:
                 tools.show_notify(msg_title, msg_content)
