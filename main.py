@@ -51,7 +51,6 @@ def run():
 def start_my_bug_task_loop():
     def task():
         while True:
-            time.sleep(45)
             bug_bean = zen_tao_client.get_my_bug()
 
             if len(bug_bean) != 0:
@@ -63,11 +62,13 @@ def start_my_bug_task_loop():
                                    + "类型：" + bean.error_type + "\n" \
                                    + "From:" + bean.author
             else:
+                pass
                 msg_title = "当前共有" + str(len(bug_bean)) + "条bug"
                 msg_content = "无"
 
             if msg_title and msg_content:
                 tools.show_notify(msg_title, msg_content)
+            time.sleep(300)
 
     task = threading.Thread(target=task, name="start_my_bug_task_loop")
     task.start()
