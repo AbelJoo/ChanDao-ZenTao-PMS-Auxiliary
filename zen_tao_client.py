@@ -44,9 +44,9 @@ def login():
 
     __cookie.clear()
     text = __request_html(HOST + __site_login, post_data)
-    status = text.find("失败")
+    is_success = text.find("失败") == -1 and not cmp(text, "") == 0
 
-    if status == -1:
+    if is_success:
         print("登录成功")
         return True
     else:
