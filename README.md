@@ -4,7 +4,6 @@
 
 
 
-
 #这是什么？
 
 **禅道PMS辅助脚本**是基于[**Python2.7**](https://www.python.org/download/releases/2.7/)的桌面提示脚本。通过自动抓取您的禅道数据，并以桌面气泡的形式给予通知。大多数情况下，该脚本能够提供及时的通知同能，并将打扰降到最低。
@@ -16,7 +15,6 @@
 现在，你可以查看教程，3分钟内即可投入使用。
 
 
-----------
 
 #使用教程
 
@@ -46,7 +44,6 @@ $ python main.py
 
 若要终止脚本运行，命令行键入Ctrl+C即可。
 
-----------
 
 
 #运行环境
@@ -56,14 +53,12 @@ $ python main.py
 > 
 >  该项目现处于Beta阶段。如果您有更好的建议，欢迎提出[**Issues**](https://github.com/AbelJoo/ChanDao-ZenTao-PMS-Auxiliary/issues)
 
-----------
 
 #博客
 
 ##[Abel Joo](http://abeljoo.github.io/)
 
 
-----------
 
 #LICENSE
 
