@@ -11,12 +11,8 @@ def scanner_config():
     """
     with open("config.inf", "r") as f:
         lines = f.readlines()
-    line_index = 0
-    while line_index < len(lines):
-        if lines[line_index].startswith("#"):
-            lines.remove(lines[line_index])
-            line_index -= 1
-        line_index += 1
+    lines = [line for line in lines if cmp(line.strip(), "") != 0]
+    lines = [line for line in lines if not line.startswith("#")]
     kv_dict = {}
     for line in lines:
         kv = line.strip().split(":", 1)

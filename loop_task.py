@@ -23,8 +23,7 @@ def start_my_bug_loop_task():
 
                 for bean in new_beans:
                     msg_title = "当前有Bug指向您"
-                    msg_content = "\t\n"
-                    msg_content += bean.title + "\n\t\n"
+                    msg_content = bean.title + "\n\t\n"
                     msg_content += "级别：" + bean.level + "\n" \
                                    + "类型：" + bean.error_type + "\n" \
                                    + "From:" + bean.author
