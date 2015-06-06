@@ -3,14 +3,18 @@
 import threading
 import time
 import sys
+import thread
 import cache
 import tools
 import zen_tao_client
 
 
-def start_my_bug_loop_task():
+RUN = True
+
+
+def get_my_bug_loop_task():
     def task():
-        while True:
+        while RUN:
             bug_beans = zen_tao_client.get_my_bug()
 
             # 过滤结果，并将最新数据放入缓存
@@ -38,5 +42,6 @@ def start_my_bug_loop_task():
             time.sleep(sleep_time)
 
     task = threading.Thread(target=task, name="start_my_bug_task_loop")
-    task.start()
     return task
+
+
