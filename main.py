@@ -22,7 +22,7 @@ def exit_handler(signum, frame):
     loop_task.RUN = False
 
 
-def run():
+def execute():
     """
     # 从这里开始执行程序
     :return:
@@ -48,7 +48,8 @@ def run():
     is_login_success = zen_tao_client.login()
     if is_login_success:
         msg_title = "登录成功"
-        msg_content = "当前版本：" + VERSION
+        msg_content = kv["account"] + " 已登录"
+        msg_content += "\n\t\n当前版本：" + VERSION
     else:
         msg_title = "登录失败"
         msg_content = "请检查:\n" \
@@ -90,4 +91,4 @@ def run():
 
 
 if __name__ == '__main__':
-    run()
+    execute()
