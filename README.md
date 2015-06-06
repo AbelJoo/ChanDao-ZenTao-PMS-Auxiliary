@@ -1,12 +1,11 @@
-禅道PMS辅助脚本
-------------
+#禅道PMS辅助脚本
+
 
 如果您所在的公司使用的是**禅道**项目管理系统（ZenTaoPMS, http://www.zentao.net ），该工具可能提高您的工作效率。
 
+-------------------
 
-
-这是什么？
-------------
+#这是什么？
 
 **禅道PMS辅助脚本**是基于[**Python2.7**](https://www.python.org/download/releases/2.7/)的桌面提示脚本。通过自动抓取您的禅道数据，并以桌面气泡的形式给予通知。大多数情况下，该脚本能够提供及时的通知同能，并将打扰降到最低。
 
@@ -16,10 +15,9 @@
 
 现在，你可以查看教程，3分钟内即可投入使用。
 
+-------------------
 
-
-使用教程
-------------
+#使用教程
 
 ##Step 1:
 Download Project，并编辑config.inf文件
@@ -49,24 +47,23 @@ $ python main.py
 
 
 
-运行环境
-------------
+#运行环境
 
 该项目在Ubuntu14.04，Python2.7下通过测试
 > **先行测试版:**
 > 
 >  该项目现处于Beta阶段。如果您有更好的建议，欢迎提出[**Issues**](https://github.com/AbelJoo/ChanDao-ZenTao-PMS-Auxiliary/issues)
 
+-------------------
 
-博客
-------------
+#博客
 
 ##[Abel Joo](http://abeljoo.github.io/)
 
 
+-------------------
 
-LICENSE
-------------
+#LICENSE
 
 Licensed under the Apache License, Version 2.0 (the "License");
    you may not use this file except in compliance with the License.
