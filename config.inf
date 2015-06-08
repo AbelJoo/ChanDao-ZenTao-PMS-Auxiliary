@@ -1,0 +1,11 @@
+#禅道登录账号
+account:carey
+
+#密码
+password:123456
+
+#禅道url前缀。
+#例如，禅道登录地址为http://192.168.1.200:8081/zentaopms/user-login.html
+#那么，host则为http://192.168.1.200:8081/zentaopms/
+#注意最后包含"/"
+host:http://192.168.1.200:8081/zentaopms/
